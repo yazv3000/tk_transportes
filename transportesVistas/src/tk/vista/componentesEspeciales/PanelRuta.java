@@ -15,7 +15,8 @@ import javax.swing.border.LineBorder;
 import modelo.Ruta;
 
 public class PanelRuta extends JPanel{
-
+	//BOTONES
+	JButton btnSeleccionar;
 	// MÉTODO GETTER DEL PANEL CON LOS DATOS DE LA RUTA 
 	public void configurar(Ruta ruta)
 	{
@@ -23,7 +24,7 @@ public class PanelRuta extends JPanel{
 		setBorder(new LineBorder(new Color(0, 0, 128), 2));
 		agregarDatosRuta(ruta);
 		
-		JButton btnSeleccionar = new JButton("Seleccionar");
+		btnSeleccionar = new JButton("Seleccionar");
 		btnSeleccionar.setFont(new Font("Georgia Ref", Font.PLAIN, 12));
 		btnSeleccionar.setBounds(585, 60, 110, 25);
 		this.add(btnSeleccionar);

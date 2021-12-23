@@ -9,9 +9,11 @@ import javax.swing.border.EmptyBorder;
 
 
 public class FormularioPrincipal extends JFrame {
+	
 	private static final long serialVersionUID = 1L;
 	
-	private JPanel contentPane;
+	public JButton btnCerrarSesion;
+	public JPanel pnl_rutas, pnl_clientes, pnl_vendedores, pnl_reservas, pnl_boletos;
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -36,12 +38,12 @@ public class FormularioPrincipal extends JFrame {
 		ImageIcon icono = new ImageIcon("src/imagenes/logo_utp.jpg");
 		setIconImage(icono.getImage());
 		
-		setBounds(100, 100, 800, 530);
+		setSize(900, 650);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setResizable(false);
 		this.setLocationRelativeTo(null);
 		
-		contentPane = new JPanel(null);
+		JPanel contentPane = new JPanel(null);
 		contentPane.setBackground(Color.WHITE);
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -49,17 +51,17 @@ public class FormularioPrincipal extends JFrame {
 		// ENCABEZADO
 		JPanel encabezado = new JPanel((LayoutManager) null);
 		encabezado.setBackground(new Color(0, 0, 139));
-		encabezado.setBounds(10, 0, 765, 60);
+		encabezado.setBounds(10, 0, 866, 60);
 		contentPane.add(encabezado);
 		
 		JLabel lblFormularios = new JLabel("FORMULARIOS");
 		lblFormularios.setHorizontalAlignment(SwingConstants.CENTER);
 		lblFormularios.setForeground(Color.WHITE);
 		lblFormularios.setFont(new Font("Georgia Ref", Font.BOLD, 25));
-		lblFormularios.setBounds(0, 0, 765, 60);
+		lblFormularios.setBounds(0, 0, 866, 60);
 		encabezado.add(lblFormularios);
 		
-		JButton btnCerrarSesion = new JButton("<html>Cerrar<br>Sesi\u00F3n</html>");
+		btnCerrarSesion = new JButton("<html>Cerrar<br>Sesi\u00F3n</html>");
 		btnCerrarSesion.setFont(new Font("Georgia Ref", Font.PLAIN, 12));
 		btnCerrarSesion.setBounds(10, 10, 90, 40);	
 		encabezado.add(btnCerrarSesion);
@@ -71,58 +73,66 @@ public class FormularioPrincipal extends JFrame {
 		contentPane.add(panel_Img);
 		
 		// BÚSQUEDA DE PASAJEROS
-		JPanel panel_1 = new JPanel(null);
-		panel_1.setBackground(new Color(65, 105, 225));
-		panel_1.setBounds(475, 70, 300, 200);
-		contentPane.add(panel_1);
+		pnl_clientes = new JPanel(null);
+		pnl_clientes.setBackground(new Color(65, 105, 225));
+		pnl_clientes.setBounds(526, 70, 350, 100);
+		contentPane.add(pnl_clientes);
 		
-		// Label Búsqueda de Pasajeros
-		JLabel lblBusqueda = new JLabel("B\u00DASQUEDA DE");
-		lblBusqueda.setHorizontalAlignment(SwingConstants.CENTER);
-		lblBusqueda.setForeground(Color.WHITE);
-		lblBusqueda.setFont(new Font("Georgia Ref", Font.PLAIN, 20));
-		lblBusqueda.setBounds(0, 45, 300, 30);
-		panel_1.add(lblBusqueda);
+		JLabel lblMantClientes = new JLabel("<html><center>MANTENIMIENTO <br>DE CLIENTES<center></html>");
+		lblMantClientes.setHorizontalAlignment(SwingConstants.CENTER);
+		lblMantClientes.setForeground(Color.WHITE);
+		lblMantClientes.setFont(new Font("Georgia Ref", Font.PLAIN, 20));
+		lblMantClientes.setBounds(0, 28, 350, 48);
+		pnl_clientes.add(lblMantClientes);
 		
-		JLabel lblPasajeros = new JLabel("PASAJEROS");
-		lblPasajeros.setHorizontalAlignment(SwingConstants.CENTER);
-		lblPasajeros.setForeground(Color.WHITE);
-		lblPasajeros.setFont(new Font("Georgia Ref", Font.PLAIN, 20));
-		lblPasajeros.setBounds(0, 75, 300, 30);
-		panel_1.add(lblPasajeros);
+		pnl_vendedores = new JPanel((LayoutManager) null);
+		pnl_vendedores.setBackground(new Color(65, 105, 225));
+		pnl_vendedores.setBounds(526, 180, 350, 100);
+		contentPane.add(pnl_vendedores);
 		
-		// Botón ingresar al formulario Búsqueda de Pasajeros
-		JButton btnIngresarBP = new JButton("Ingresar");
-		btnIngresarBP.setFont(new Font("Georgia Ref", Font.PLAIN, 12));
-		btnIngresarBP.setBounds(90, 140, 120, 30);
-		panel_1.add(btnIngresarBP);
+		JLabel lblMantVendedores = new JLabel("<html><center>MANTENIMIENTO <br>DE VENDEDORES<center></html>");
+		lblMantVendedores.setHorizontalAlignment(SwingConstants.CENTER);
+		lblMantVendedores.setForeground(Color.WHITE);
+		lblMantVendedores.setFont(new Font("Georgia Ref", Font.PLAIN, 20));
+		lblMantVendedores.setBounds(0, 25, 351, 50);
+		pnl_vendedores.add(lblMantVendedores);
 		
-		// BÚSQUEDA DE BOLETOS DE VIAJE
-		JPanel panel_2 = new JPanel(null);
-		panel_2.setBackground(new Color(65, 105, 225));
-		panel_2.setBounds(475, 280, 300, 200);
-		contentPane.add(panel_2);
+		pnl_rutas = new JPanel((LayoutManager) null);
+		pnl_rutas.setBackground(new Color(65, 105, 225));
+		pnl_rutas.setBounds(526, 290, 350, 100);
+		contentPane.add(pnl_rutas);
 		
-		// Label Búsqueda de Boletos de Viaje
-		JLabel lblBsqueda = new JLabel("B\u00DASQUEDA DE");
-		lblBsqueda.setHorizontalAlignment(SwingConstants.CENTER);
-		lblBsqueda.setForeground(Color.WHITE);
-		lblBsqueda.setFont(new Font("Georgia Ref", Font.PLAIN, 20));
-		lblBsqueda.setBounds(0, 45, 300, 30);
-		panel_2.add(lblBsqueda);
+		JLabel lblMantRutas = new JLabel("<html><center>MANTENIMIENTO <br>DE RUTAS<center></html>");
+		lblMantRutas.setHorizontalAlignment(SwingConstants.CENTER);
+		lblMantRutas.setForeground(Color.WHITE);
+		lblMantRutas.setFont(new Font("Georgia Ref", Font.PLAIN, 20));
+		lblMantRutas.setBounds(0, 25, 350, 50);
+		pnl_rutas.add(lblMantRutas);
 		
-		JLabel lblBoletos = new JLabel("BOLETOS DE VIAJE");
+		pnl_reservas = new JPanel((LayoutManager) null);
+		pnl_reservas.setBackground(new Color(65, 105, 225));
+		pnl_reservas.setBounds(526, 400, 350, 95);
+		contentPane.add(pnl_reservas);
+		
+		JLabel lblReservas = new JLabel("<html><center>RESERVAS<center></html>");
+		lblReservas.setHorizontalAlignment(SwingConstants.CENTER);
+		lblReservas.setForeground(Color.WHITE);
+		lblReservas.setFont(new Font("Georgia Ref", Font.PLAIN, 20));
+		lblReservas.setBounds(0, 24, 350, 48);
+		pnl_reservas.add(lblReservas);
+		
+		pnl_boletos = new JPanel((LayoutManager) null);
+		pnl_boletos.setBackground(new Color(65, 105, 225));
+		pnl_boletos.setBounds(526, 503, 350, 95);
+		contentPane.add(pnl_boletos);
+		
+		JLabel lblBoletos = new JLabel("<html><center>BOLETOS DE<br> VIAJE<center></html>");
 		lblBoletos.setHorizontalAlignment(SwingConstants.CENTER);
 		lblBoletos.setForeground(Color.WHITE);
 		lblBoletos.setFont(new Font("Georgia Ref", Font.PLAIN, 20));
-		lblBoletos.setBounds(0, 75, 300, 30);
-		panel_2.add(lblBoletos);
+		lblBoletos.setBounds(0, 24, 350, 48);
+		pnl_boletos.add(lblBoletos);
 		
-		// Botón ingresar al formulario Búsqueda de Boletos de Viaje
-		JButton btnIngresarBB = new JButton("Ingresar");
-		btnIngresarBB.setFont(new Font("Georgia Ref", Font.PLAIN, 12));
-		btnIngresarBB.setBounds(90, 140, 120, 30);
-		panel_2.add(btnIngresarBB);
 	}
 	
 	// IMAGEN

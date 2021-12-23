@@ -4,13 +4,16 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Random;
 
+import DAO.ReservaDAO;
+
 public class Reserva {
 
 	// ATRIBUTOS
 	private int codigoRe;
 	private Viaje viaje;
 	private Cliente cliente;
-	private Asiento asientoReservado;
+	private Vendedor vendedor;
+	private int asientoReservado;
 	private Calendar fechaDeReserva;
 	private double precioBase;
 
@@ -19,7 +22,7 @@ public class Reserva {
 	public Reserva() {}
 
 	// Constructor sin codigo (para generar nuevas boletas)
-	public Reserva(Viaje viaje, Cliente cliente, Asiento asientoReservado, Calendar fechaDeReserva, double precioBase) {
+	public Reserva(Viaje viaje, Cliente cliente, int asientoReservado, Calendar fechaDeReserva, double precioBase) {
 		ReservaDAO reDao = new ReservaDAO();
 		this.codigoRe = reDao.generarCodigo();
 
@@ -34,7 +37,7 @@ public class Reserva {
 	}	
 
 	// Constructor con código (para recuperar registros de boletas de la BD)
-	public Reserva(int codigoRe, Viaje viaje, Cliente cliente, Asiento asientoReservado, Calendar fechaDeReserva, double precioBase)  {
+	public Reserva(int codigoRe, Viaje viaje, Cliente cliente, int asientoReservado, Calendar fechaDeReserva, double precioBase)  {
 		this.codigoRe = codigoRe;
 		this.viaje = viaje;
 		this.cliente = cliente;
@@ -50,10 +53,12 @@ public class Reserva {
 	public Cliente getCliente() {return cliente;}
 	public void setCliente(Cliente cliente) {		this.cliente = cliente;	}
 	
+	public Vendedor getVendedor() {return vendedor;}
+	
 	public Viaje getViaje() {		return viaje;	}
 	
-	public Asiento getUbicacion() {		return asientoReservado;	}
-	public void setUbicacionReservada(Asiento ubic) {		this.asientoReservado = ubic;	}
+	public int getUbicacion() {		return asientoReservado;	}
+	public void setUbicacionReservada(int ubic) {		this.asientoReservado = ubic;	}
 	
 	public double getPrecioBase(){	return this.precioBase;	}
 
@@ -63,5 +68,4 @@ public class Reserva {
 	
 	public Calendar getFechadeRetorno() {return this.viaje.getFechaRetorno(); }
 	
-	pu
 }

@@ -2,6 +2,7 @@ package modelo;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import DAO.UsuarioDAO;
 
 public class Administrador extends Usuario 		// RELACIÓN DE HERENCIA  | CLASE PADRE: USUARIO   CLASE DERIVADA: ADMINISTRADOR
 

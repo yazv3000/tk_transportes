@@ -27,7 +27,7 @@ public class Conexion {
 		}
 	} // Fin constructor
 		// Métodos
-	public static Connection getConnection() {
+	public Connection getConnection() {
 		if (conn == null) {
 			new Conexion();
 		}

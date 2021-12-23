@@ -12,9 +12,10 @@ public class Boleta{
 	public Boleta() {}
 	
 	// Constructor con parámetros
-	public Boleta(int numerodeBoleto, Reserva reserva, double precioTotal) {
+	public Boleta(int numerodeBoleto, Reserva reserva, Vendedor vendedor, double precioTotal) {
 		this.numerodeBoleto = numerodeBoleto;
 		this.reserva = reserva;
+		this.vendedor = vendedor;
 		this.precioTotal = precioTotal;
 	}
 	

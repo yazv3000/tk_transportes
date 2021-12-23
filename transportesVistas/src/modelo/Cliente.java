@@ -3,6 +3,9 @@ package modelo;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
+import DAO.ClienteDAO;
+import DAO.UsuarioDAO;
+
 public class Cliente extends Usuario 	// RELACIÓN DE HERENCIA  | CLASE PADRE: USUARIO   CLASE DERIVADA: CLIENTE
 {										
 	// ATRIBUTOS

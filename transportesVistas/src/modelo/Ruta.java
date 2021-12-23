@@ -1,25 +1,6 @@
 package modelo;
 
-import java.awt.Color;
-import java.awt.Font;
-import java.awt.Image;
-import java.awt.Window;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
-import javax.swing.Icon;
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.SwingConstants;
-import javax.swing.border.LineBorder;
-
 import tk.vista.componentesEspeciales.PanelRuta;
-import utp.formularios.BuscarRuta;
-import utp.formularios.HorarioServicio;
-import utp.formularios.IngresoDatos;
-import utp.vista.componentesEspeciales.LblHorarioFuncion;
 
 /** EMPRESA DE TRANSPORTES UTP
  *  Versión 1.0		07/07/2021
@@ -30,14 +11,15 @@ import utp.vista.componentesEspeciales.LblHorarioFuncion;
 //"TIPO DE SERVICIO", "HORA DE PARTIDA", ORIGEN", "TERMINAL ORIGEN", "DURACIÓN", 
 //								"HORA DE LLEGADA", DESTINO", "TERMINAL DESTINO", "PRECIO",
 public class Ruta {
-	private String codRuta,tipoServicio, horaP, horaL, duracion;
+	private int codRuta;
+	private String tipoServicio, horaP, horaL, duracion;
 	private Terminal terminalO, terminalD;
 	private double precio;
 	private PanelRuta panelRuta;
 	// CONSTRUCTORES
 	// Constructor con valores por defecto
 	public Ruta() {
-			this.codRuta = "u";
+			this.codRuta = 00;
 			this.tipoServicio = "S";
 			this.horaP = "00:00";
 			this.horaL = "00:00";
@@ -48,7 +30,7 @@ public class Ruta {
 	}
 
 	// Constructor con parámetros
-	public Ruta (String codRuta,String tipoServicio, String horaP, String horaL, String duracion, Terminal terminalO,
+	public Ruta (int codRuta,String tipoServicio, String horaP, String horaL, String duracion, Terminal terminalO,
 		Terminal terminalD, double precio)
 	{
 		this.codRuta = codRuta;
@@ -62,8 +44,8 @@ public class Ruta {
 	}
 		
 	// MÉTODOS GETTER AND SETTER
-	public String getCodRuta() {return codRuta;}
-	public void setCodRuta(String codRuta) {this.codRuta = codRuta;}
+	public int getCodRuta() {return codRuta;}
+	public void setCodRuta(int codRuta) {this.codRuta = codRuta;}
 	
 	public String getTipoServicio() {	return tipoServicio;	}
 	public void setTipoServicio(String tipoServicio) {	this.tipoServicio = tipoServicio;	}

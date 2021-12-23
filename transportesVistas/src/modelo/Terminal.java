@@ -10,12 +10,16 @@ public class Terminal {
 	// CONSTRUCTOR
 	public Terminal () {}
 	
-	public Terminal(int codigoTe, String nombreCiudad) {
+	public Terminal(int codigoTe, String nombreTerminal, String nombreCiudad) {
 		this.codigoTe = codigoTe;
+		this.nombreTerminal = nombreTerminal;
 		this.nombreCiudad = nombreCiudad;
 	}
 	
 	// GETTERS AND SETTERS
+	public int getCodigoTe() {	return codigoTe;}
+	public void setCodigoTe(int codigoTe) {	this.codigoTe = codigoTe;}
+	
 	public String getNombreCiudad() {		return nombreCiudad;	}
 	public void setNombreCiudad(String nombreCiudad) {		this.nombreCiudad = nombreCiudad;	}
 	

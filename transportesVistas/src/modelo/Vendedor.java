@@ -1,5 +1,8 @@
 package modelo;
 
+import DAO.VendedorDAO;
+import DAO.UsuarioDAO;
+
 public class Vendedor extends Usuario{
 	// ATRIBUTOS
 	private int codigoVe;
