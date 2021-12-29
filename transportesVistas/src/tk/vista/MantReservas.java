@@ -23,7 +23,7 @@ import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 
-import controladores.CtrlReserva;
+import tk.controladores.CtrlReserva;
 
 public class MantReservas extends JFrame {
 	

@@ -23,6 +23,8 @@ import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 
+import tk.controladores.CtrlRutas;
+
 public class MantRutas extends JFrame {
 	
 	private static final long serialVersionUID = 1L;
@@ -51,10 +53,10 @@ public class MantRutas extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					MantRutas mc = new MantRutas();
-					CtrlCliente c = new CtrlCliente(mc);
-					c.listar(mc.tablaClientes);
-					mc.setVisible(true);
+					MantRutas mr = new MantRutas();
+					CtrlRutas ru = new CtrlRutas(mr);
+					ru.listar(mr.tablaClientes);
+					mr.setVisible(true);
 					
 				} catch (Exception e) {
 					e.printStackTrace();

@@ -3,45 +3,43 @@ package tk.vista;
 import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.Font;
-import java.awt.Graphics;
-import java.awt.Image;
-import java.awt.LayoutManager;
-import java.awt.SystemColor;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.Insets;
+import java.util.Date;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JComboBox;
+import javax.swing.JCheckBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JSeparator;
+import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
-import com.toedter.calendar.JDateChooser;
-
-/** EMPRESA DE TRANSPORTES UTP
- *  Versión 1.0		07/07/2021
- *  Versión 2.0 		19/07/2021
- *  @authors Y. A. Zapata Vargas, L. R. Puma Herencia
- */
 
 public class BuscarRuta extends JFrame {
 	private static final long serialVersionUID = 1L;
 	
-	// CAMPOS DEL FRAME	
-	private JComboBox<String> ciudadesOrigen, ciudadesDestino;
-	private JDateChooser dcFechaIda, dcFechaRetorno;
+	// ATRIBUTOS
+	private String origen;
+	private String destino;
+	private Date fecha;
+	private int filtradorServicios=-1;
+	public static int controladorBack = 0;
+
+	// CAMPOS DEL FRAME
+	private JCheckBox cbxEvolution, cbxSuite; 		// checkBoxs de los tipos de crucero: Evolution | Suite 
+	private JPanel contentPane2 = new JPanel(null);
+	public JButton btnVolver, btnSaltar, botonBuscar;
 	
 	/* Launch the application. */
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					BuscarRuta br = new BuscarRuta();
-					br.setVisible(true);				
+					BuscarRuta hs = new BuscarRuta();
+					hs.setVisible(true);				
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -49,21 +47,24 @@ public class BuscarRuta extends JFrame {
 		});
 	}
 	
-	// CONSTRUCTOR
-	public BuscarRuta() {
-
-		ciudadesOrigen = new JComboBox<String>();			// crea los comboBox para elegir las ciudades de origen y destino
-		ciudadesDestino = new JComboBox<String>();
-		
-		dcFechaIda = new JDateChooser();							// crea los dateChosser para elegir la fecha de ida y, opcionanlmente, la fecha de retorno
-		dcFechaRetorno = new JDateChooser();
-
-		initializeFrame();							// Inicializa el frame
+	// CONSTRUCTORES
+	public BuscarRuta() {	
+		this("AREQUIPA", "LIMA", new Date());	// Rutas por defecto
 	}
-
+		
+	public BuscarRuta(String orig, String dest, Date fech) {
+		this.origen = orig;
+		this.destino = dest;
+		this.fecha = fech;
+		
+		if(controladorBack>1)	controladorBack=0;				// esta variable controla si con el botón Volver, regresa al formulario BuscarRuta o a los horarios de la ruta de ida
+		
+		initializeFrame();
+	}
+		
 	
-	// MÉTODO PARA CREAR EL FORMULARIO DE INICIO (BUSCAR RUTA)
-	public void initializeFrame() {	// método para crear los contenidos del frame
+	// MÉTODO PARA CREAR EL FORMULARIO DE HORARIOS Y SERVICIOS
+	public void initializeFrame() {
 		ImageIcon icono = new ImageIcon("src/imagenes/logo_utp.jpg");
 		setIconImage(icono.getImage());
 		
@@ -71,9 +72,8 @@ public class BuscarRuta extends JFrame {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setResizable(false);
 		this.setLocationRelativeTo(null); 
-
-
-		JPanel contentPane = new JPanel(null);	// Panel contenedor
+		
+		JPanel contentPane = new JPanel(null);
 		contentPane.setBackground(Color.WHITE);
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -82,145 +82,139 @@ public class BuscarRuta extends JFrame {
 		JPanel encabezado = new JPanel(null);
 		encabezado.setBounds(10, 0, 765, 60);
 		encabezado.setBackground(new Color(0, 0, 139));
-		
-		JLabel lblEmpresa = new JLabel("EMPRESA DE TRANSPORTES UTP");
-		lblEmpresa.setBounds(0, 0, 765, 60);
-		lblEmpresa.setHorizontalAlignment(SwingConstants.CENTER);
-		lblEmpresa.setForeground(Color.WHITE);
-		lblEmpresa.setFont(new Font("Georgia Ref", Font.BOLD, 25));
-		encabezado.add(lblEmpresa);
+
+		JLabel lblEncabezado = new JLabel("HORARIOS Y SERVICIOS"+((controladorBack==0)?" - IDA":((controladorBack==1)?" - RETORNO":"")));
+		lblEncabezado.setBounds(0, 0, 765, 60);
+		lblEncabezado.setHorizontalAlignment(SwingConstants.CENTER);
+		lblEncabezado.setForeground(Color.WHITE);
+		lblEncabezado.setFont(new Font("Georgia Ref", Font.BOLD, 25));	
+		encabezado.add(lblEncabezado);
 		contentPane.add(encabezado);
 		
-		JButton btnReiniciar = new JButton("Reiniciar");
-		btnReiniciar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				BuscarRuta br = new BuscarRuta();
-				br.setVisible(true);
-				dispose();
-			}
-		});
-		btnReiniciar.setFont(new Font("Georgia Ref", Font.PLAIN, 12));
-		btnReiniciar.setBounds(10, 10, 100, 25);
-		btnReiniciar.setVisible(false);
-		encabezado.add(btnReiniciar);
+		btnVolver = new JButton("Volver");
+		btnVolver.setFont(new Font("Georgia Ref", Font.PLAIN, 12));
+		btnVolver.setBounds(10, 10, 70, 25);
+		encabezado.add(btnVolver);
 		
-		// PANEL PRINCIPAL: PARA SELECCIONAR ORIGEN - DESTINO - FECHA IDA (Y RETORNO)
-		JPanel panelPrincipal = new JPanel(null);
-		panelPrincipal.setBounds(10, 70, 400, 343);
-		panelPrincipal.setBackground(new Color(65, 105, 225));
+		btnSaltar = new JButton("Solo Ida");
+		btnSaltar.setFont(new Font("Georgia Ref", Font.PLAIN, 12));
+		btnSaltar.setBounds(655, 12, 90, 25);
+		if(controladorBack==0) btnSaltar.setVisible(false);
+		encabezado.add(btnSaltar);
 		
-		JLabel lbllSaludo = new JLabel("Hola, \u00BFa d\u00F3nde nos vamos de viaje?");
-		lbllSaludo.setHorizontalAlignment(SwingConstants.CENTER);
-		lbllSaludo.setForeground(Color.WHITE);
-		lbllSaludo.setFont(new Font("Gabriola", Font.BOLD, 20));
-		lbllSaludo.setBounds(0, 30, 400, 29);
-		panelPrincipal.add(lbllSaludo);
+		//--------------------- PANEL PARA FILTRAR HORARIOS Y SERVICIOS ----------------------//
 		
-		JSeparator separator = new JSeparator();
-		separator.setBounds(20, 60, 360, 2);
-		panelPrincipal.add(separator);
+		JPanel panelFiltros = new JPanel(null);
+		panelFiltros.setBounds(10, 70, 765, 90);
+		panelFiltros.setBackground(new Color(65, 105, 225));
+		contentPane.add(panelFiltros);
 		
-		//------------------------- SELECCIONAR ORIGEN ---------------------------// 
-		JLabel lblOrigen = new JLabel("ORIGEN                             :");
-		lblOrigen.setIcon(new ImageIcon(BuscarRuta.class.getResource("/imagenes/city.png")));
-		lblOrigen.setForeground(Color.WHITE);
-		lblOrigen.setFont(new Font("Georgia Ref", Font.PLAIN, 14));
-		lblOrigen.setBounds(30, 80, 180, 20);
-		panelPrincipal.add(lblOrigen);
+		//Label Tipo de Servicio
+		JLabel lblTipoDe = new JLabel("TIPO DE");
+		lblTipoDe.setForeground(Color.WHITE);
+		lblTipoDe.setFont(new Font("Georgia Ref", Font.PLAIN, 14));
+		lblTipoDe.setBounds(20, 25, 100, 20);
+		panelFiltros.add(lblTipoDe);
 		
-		ciudadesOrigen.setFont(new Font("Georgia Ref", Font.PLAIN, 12));
-		ciudadesOrigen.setBackground(SystemColor.window);
-		ciudadesOrigen.setBounds(220, 80, 160, 20);
-		panelPrincipal.add(ciudadesOrigen);
-		//----------------------------------------------------------------------------------// 
+		JLabel lblServicio = new JLabel("SERVICIO  :");
+		lblServicio.setForeground(Color.WHITE);
+		lblServicio.setFont(new Font("Georgia Ref", Font.PLAIN, 14));
+		lblServicio.setBounds(20, 45, 100, 20);
+		panelFiltros.add(lblServicio);
+		
+		// CheckBoxs
+		cbxEvolution = new JCheckBox("Crucero Evolution");
+		cbxEvolution.setForeground(Color.WHITE);
+		cbxEvolution.setBackground(new Color(65, 105, 225));
+		cbxEvolution.setFont(new Font("Georgia Ref", Font.PLAIN, 12));
+		cbxEvolution.setBounds(110, 20, 140, 20);
+		cbxEvolution.setSelected(true);
+		panelFiltros.add(cbxEvolution);
 
-		//------------------------- SELECCIONAR DESTINO -------------------------//
-		JLabel lblDestino = new JLabel("DESTINO                          :");
-		lblDestino.setIcon(new ImageIcon(BuscarRuta.class.getResource("/imagenes/city.png")));
+		cbxSuite = new JCheckBox("Confort Suite");
+		cbxSuite.setForeground(Color.WHITE);
+		cbxSuite.setBackground(new Color(65, 105, 225));
+		cbxSuite.setFont(new Font("Georgia Ref", Font.PLAIN, 12));
+		cbxSuite.setBounds(110, 55, 140, 20);
+		cbxSuite.setSelected(true);
+		panelFiltros.add(cbxSuite);
+
+		// Línea divisoria
+		JSeparator separator = new JSeparator();
+		separator.setOrientation(SwingConstants.VERTICAL);
+		separator.setBounds(370, 10, 2, 70);
+		panelFiltros.add(separator);
+
+		//------------------------------------- DATOS DEL VIAJE -----------------------------------------//
+		
+		// Ciudad de Origen y de Destino
+		JLabel lblOrigen = new JLabel("ORIGEN   :");
+		lblOrigen.setForeground(Color.WHITE);
+		lblOrigen.setFont(new Font("Georgia Ref", Font.PLAIN, 12));
+		lblOrigen.setBounds(390, 20, 70, 20);
+		panelFiltros.add(lblOrigen);
+		
+		JLabel lblDestino = new JLabel("DESTINO :");
 		lblDestino.setForeground(Color.WHITE);
-		lblDestino.setFont(new Font("Georgia Ref", Font.PLAIN, 14));
-		lblDestino.setBounds(30, 125, 180, 20);
-		panelPrincipal.add(lblDestino);
+		lblDestino.setFont(new Font("Georgia Ref", Font.PLAIN, 12));
+		lblDestino.setBounds(390, 54, 70, 20);
+		panelFiltros.add(lblDestino);
 		
-		ciudadesDestino.setFont(new Font("Georgia Ref", Font.PLAIN, 12));
-		ciudadesDestino.setBackground(Color.WHITE);
-		ciudadesDestino.setBounds(220, 125, 160, 20);
-		panelPrincipal.add(ciudadesDestino);
-		//----------------------------------------------------------------------------------// 
+		JTextField txtOrigen = new JTextField(origen.toUpperCase());								
+		txtOrigen.setEditable(false);
+		txtOrigen.setHorizontalAlignment(SwingConstants.CENTER);
+		txtOrigen.setFont(new Font("Georgia Ref", Font.PLAIN, 12));
+		txtOrigen.setBounds(460, 18, 90, 20);
+		txtOrigen.setColumns(10);
+		panelFiltros.add(txtOrigen);
 		
-		//--------------------- SELECCIONAR FECHA DE IDA -----------------------//
-		JLabel lblFechaDeIda = new JLabel("FECHA DE IDA               :");
-		lblFechaDeIda.setIcon(new ImageIcon(BuscarRuta.class.getResource("/imagenes/calendario.png")));
-		lblFechaDeIda.setForeground(Color.WHITE);
-		lblFechaDeIda.setFont(new Font("Georgia Ref", Font.PLAIN, 14));
-		lblFechaDeIda.setBounds(30, 173, 180, 20);
-		panelPrincipal.add(lblFechaDeIda);
+		JTextField txtDestino = new JTextField(destino.toUpperCase());	
+		txtDestino.setEditable(false);
+		txtDestino.setHorizontalAlignment(SwingConstants.CENTER);
+		txtDestino.setFont(new Font("Georgia Ref", Font.PLAIN, 12));
+		txtDestino.setBounds(460, 52, 90, 20);
+		txtDestino.setColumns(10);
+		panelFiltros.add(txtDestino);
 		
-		dcFechaIda.setDateFormatString("dd/MM/yyyy");		// estable el formato día/mes/año
-		dcFechaIda.setBounds(220, 170, 160, 20);
-		panelPrincipal.add(dcFechaIda);
-		//----------------------------------------------------------------------------------// 
+		// Fecha de Ida (y retorno)
+		JLabel lblFecIda = new JLabel("FEC. IDA             :");
+		lblFecIda.setForeground(Color.WHITE);
+		lblFecIda.setFont(new Font("Georgia Ref", Font.PLAIN, 12));
+		lblFecIda.setBounds(575, 20, 100, 20);
+		panelFiltros.add(lblFecIda);
 		
-		//------------------ SELECCIONAR FECHA DE RETORNO ------------------//
-		JLabel lblFechaDeRetorno = new JLabel("FECHA DE RETORNO :");
-		lblFechaDeRetorno.setIcon(new ImageIcon(BuscarRuta.class.getResource("/imagenes/calendario.png")));
-		lblFechaDeRetorno.setForeground(Color.WHITE);
-		lblFechaDeRetorno.setFont(new Font("Georgia Ref", Font.PLAIN, 14));
-		lblFechaDeRetorno.setBounds(30, 215, 180, 20);
-		panelPrincipal.add(lblFechaDeRetorno);
+		JLabel lblFecRetorno = new JLabel("FEC. RETORNO :");
+		lblFecRetorno.setForeground(Color.WHITE);
+		lblFecRetorno.setFont(new Font("Georgia Ref", Font.PLAIN, 12));
+		lblFecRetorno.setBounds(575, 54, 100, 20);
+		panelFiltros.add(lblFecRetorno);
 		
-		JLabel lblOpcional = new JLabel("(Opcional)");
-		lblOpcional.setForeground(Color.WHITE);
-		lblOpcional.setFont(new Font("Georgia Ref", Font.ITALIC, 12));
-		lblOpcional.setBounds(55, 235, 160, 14);
-		panelPrincipal.add(lblOpcional);
+		JTextField txtFechaIda = new JTextField("Viaje.getStrFecIda()");		// Fecha de ida
+		txtFechaIda.setEditable(false);
+		txtFechaIda.setHorizontalAlignment(SwingConstants.CENTER);
+		txtFechaIda.setFont(new Font("Garamond", Font.PLAIN, 12));
+		txtFechaIda.setBounds(675, 18, 70, 20);
+		txtFechaIda.setColumns(10);
+		panelFiltros.add(txtFechaIda);
 		
-		dcFechaRetorno.setDateFormatString("dd/MM/yyyy");	// estable el formato día/mes/año
-		dcFechaRetorno.setBounds(220, 215, 160, 20);
-		panelPrincipal.add(dcFechaRetorno);
-		//---------------------------------------------------------------------------------// 
+		JTextField txtFechaRetorno = new JTextField("Viaje.getStrFecRet()");		// Fecha de retorno es opcional
+		txtFechaRetorno.setEditable(false);
+		txtFechaRetorno.setHorizontalAlignment(SwingConstants.CENTER);
+		txtFechaRetorno.setFont(new Font("Garamond", Font.PLAIN, 12));
+		txtFechaRetorno.setBounds(675, 52, 70, 20);
+		txtFechaRetorno.setColumns(10);
+		panelFiltros.add(txtFechaRetorno);
 		
-		//------------------------ BOTÓN BUSCAR RUTAS --------------------------//	
-		JButton btnBuscar = new JButton("BUSCAR");
-		btnBuscar.setIcon(new ImageIcon(BuscarRuta.class.getResource("/imagenes/buscar_rutas.png")));
-		btnBuscar.setBounds(120, 280, 140, 40);
-		btnBuscar.setFont(new Font("Georgia Ref", Font.PLAIN, 14));
-		panelPrincipal.add(btnBuscar);
-		contentPane.add(panelPrincipal);
-		//---------------------------------------------------------------------------------// 
-		
-		// PANEL INFERIOR: PARA ENTRAR COMO ADMINISTRADOR
-		JPanel panelInferior = new JPanel((LayoutManager) null);
-		panelInferior.setBackground(new Color(0, 0, 139));
-		panelInferior.setBounds(10, 423, 765, 60);
-		contentPane.add(panelInferior);
-		
-		JLabel lbIngresoAdmin = new JLabel("Ingresar como administrador");
-		lbIngresoAdmin.setIcon(new ImageIcon(BuscarRuta.class.getResource("/imagenes/key.png")));
-		lbIngresoAdmin.setBounds(250, 20, 265, 20);
-		lbIngresoAdmin.setHorizontalAlignment(SwingConstants.CENTER);
-		lbIngresoAdmin.setFont(new Font("Georgia Ref", Font.ITALIC, 14));
-		lbIngresoAdmin.setForeground(new Color(65, 105, 225));
-		panelInferior.add(lbIngresoAdmin);
-		
-		JPanel panel = new ImagenFondo();
-		panel.setBackground(Color.GREEN);
-		panel.setBounds(420, 71, 355, 342);
-		contentPane.add(panel);
-	}
-	
-	// IMAGEN
-	class ImagenFondo extends JPanel	{
-		private static final long serialVersionUID = 1L;
-		
-		private Image imagen;
-		//METODOS
-		public void paint (Graphics g)
-		{
-			imagen = new ImageIcon(getClass().getResource("/imagenes/BeFunky-collage.jpg")).getImage();
-			g.drawImage(imagen, 0, 0, getWidth(), getHeight(), this);
-			setOpaque(false);
-			super.paint(g);
-		}
+		//------------------------------------------------------------------------------------------------------// 
+		contentPane2.setBackground(Color.DARK_GRAY);
+		contentPane2.setBounds(10, 170, 765, 313);
+		contentPane.add(contentPane2);
+
+		botonBuscar = new JButton("BUSCAR");
+		botonBuscar.setMargin(new Insets(2,2,2,2));
+		botonBuscar.setIcon(new ImageIcon(BuscarRuta.class.getResource("/imagenes/search.png")));
+		botonBuscar.setFont(new Font("Georgia Ref", Font.PLAIN, 12));
+		botonBuscar.setBounds(260, 30, 90, 30);
+		panelFiltros.add(botonBuscar);
 	}
 }

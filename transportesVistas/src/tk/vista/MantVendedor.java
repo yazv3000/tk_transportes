@@ -23,12 +23,14 @@ import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 
+import tk.controladores.CtrlVendedor;
+
 public class MantVendedor extends JFrame {
 	
 	private static final long serialVersionUID = 1L;
 	
 	// COMPONENTES DEL FRAME
-	public JTable tablaClientes = new JTable();
+	public JTable tablaVendedores = new JTable();
 	
 	public JTextField txtCodigo, txtNombres, txtApePat, txtApeMat; 
 	public JTextField txtDni, txtCelular, txtDireccion, txtEmail;
@@ -53,7 +55,7 @@ public class MantVendedor extends JFrame {
 				try {
 					MantVendedor mv = new MantVendedor();
 					CtrlVendedor v = new CtrlVendedor(mv);
-					v.listar(mv.tablaClientes);
+					v.listar(mv.tablaVendedores);
 					mv.setVisible(true);
 					
 				} catch (Exception e) {
@@ -66,7 +68,7 @@ public class MantVendedor extends JFrame {
 	//CONSTRUCTOR
 	public MantVendedor() {
 		
-		tablaClientes.setModel(new DefaultTableModel(
+		tablaVendedores.setModel(new DefaultTableModel(
 			new Object[][] {
 			},
 			new String[] {
@@ -124,14 +126,14 @@ public class MantVendedor extends JFrame {
 		scrollPane.setBounds(20, 234, 700, 426);
 		contentPane.add(scrollPane);
 		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-		scrollPane.setViewportView(tablaClientes);
+		scrollPane.setViewportView(tablaVendedores);
 		
-		tablaClientes.setRowHeight(18);
-		tablaClientes.getColumnModel().getColumn(0).setPreferredWidth(20);
-		tablaClientes.getColumnModel().getColumn(3).setPreferredWidth(40);
-		tablaClientes.getColumnModel().getColumn(4).setPreferredWidth(20);
-		tablaClientes.getColumnModel().getColumn(5).setPreferredWidth(40);
-		tablaClientes.getColumnModel().getColumn(6).setPreferredWidth(100);
+		tablaVendedores.setRowHeight(18);
+		tablaVendedores.getColumnModel().getColumn(0).setPreferredWidth(20);
+		tablaVendedores.getColumnModel().getColumn(3).setPreferredWidth(40);
+		tablaVendedores.getColumnModel().getColumn(4).setPreferredWidth(20);
+		tablaVendedores.getColumnModel().getColumn(5).setPreferredWidth(40);
+		tablaVendedores.getColumnModel().getColumn(6).setPreferredWidth(100);
 	
 		
 		//-------------------------- BÚSQUEDAS --------------------------//
@@ -225,7 +227,7 @@ public class MantVendedor extends JFrame {
 
 		//-------------------- BOTONES DE MANTEMIENTO --------------------//
 		btnBuscar = new JButton("  Buscar");
-		btnBuscar.setIcon(new ImageIcon(MantClientes.class.getResource("/imagenes/search.png")));
+		btnBuscar.setIcon(new ImageIcon(MantVendedor.class.getResource("/imagenes/search.png")));
 		btnBuscar.setBounds(470, 100, 120, 30);
 		btnBuscar.setFont(new Font("Eras Bold ITC", Font.PLAIN, 12));
 		panelOpciones.add(btnBuscar);

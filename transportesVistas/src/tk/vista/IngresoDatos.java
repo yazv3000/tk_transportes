@@ -41,6 +41,8 @@ public class IngresoDatos extends JFrame {
 	private JPanel panelOmniBus = new JPanel(null);
 	private JPanel contentPane = new JPanel(null);
 	
+	public JButton btnVolver, btnCambiarAsIda, btnElegirAsIda, btnElegirAsRet, btnCambiarAsRet, btnCancelar, btnReservarSoloIda, btnReservar;
+	
 	
 	/* Launch the application. */
 	public static void main(String[] args) {

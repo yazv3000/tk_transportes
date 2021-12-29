@@ -8,7 +8,7 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
 
-import modelo.Asiento;
+import tk.modelo.Asiento;
 
 public class BotonAsiento extends JButton{
 

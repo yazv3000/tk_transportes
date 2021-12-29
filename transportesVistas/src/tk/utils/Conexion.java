@@ -5,32 +5,28 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class Conexion {
-	// Propiedades
-	private static Connection conn = null;
-	private String driver;
-	private String url;
-	private String usuario;
-	private String password;
+	
+	private static Connection conn = null;		// Instancia única
 
-	// Constructor
+	// CONSTRUCTOR
 	private Conexion() {
-
 		String url = "jdbc:mysql://localhost:3306/test";
 		String driver = "com.mysql.jdbc.Driver";
-		String usuario = "usuario";
-		String password = "password";
+		String usuario = "root";
+		String password = "*****";
 		try {
 			Class.forName(driver);
 			conn = DriverManager.getConnection(url, usuario, password);
 		} catch (ClassNotFoundException | SQLException e) {
 			e.printStackTrace();
 		}
-	} // Fin constructor
-		// Métodos
-	public Connection getConnection() {
+	}
+	
+	// MÉTODOS
+	public static Connection getConnection() {
 		if (conn == null) {
 			new Conexion();
 		}
 		return conn;
-	} // Fin getConnection
+	}
 }

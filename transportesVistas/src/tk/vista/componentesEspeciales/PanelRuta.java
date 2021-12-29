@@ -12,7 +12,7 @@ import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.border.LineBorder;
 
-import modelo.Ruta;
+import tk.modelo.Ruta;
 
 public class PanelRuta extends JPanel{
 	//BOTONES
