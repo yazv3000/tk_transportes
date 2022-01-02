@@ -23,7 +23,7 @@ import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 
-import tk.controladores.CtrlRutas;
+import tk.controladores.CtrlMantRutas;
 
 public class MantRutas extends JFrame {
 	
@@ -54,7 +54,7 @@ public class MantRutas extends JFrame {
 			public void run() {
 				try {
 					MantRutas mr = new MantRutas();
-					CtrlRutas ru = new CtrlRutas(mr);
+					CtrlMantRutas ru = new CtrlMantRutas(mr);
 					ru.listar(mr.tablaClientes);
 					mr.setVisible(true);
 					

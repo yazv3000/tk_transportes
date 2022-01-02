@@ -15,7 +15,7 @@ import tk.modeloDAO.RutaDAO;
 import tk.vista.Menu;
 import tk.vista.MantRutas;
 
-public class CtrlRutas implements ICtrlMantenimiento {		// Implementa la interfaz ICtrlMantenimiento
+public class CtrlMantRutas implements ICtrlMantenimiento {		// Implementa la interfaz ICtrlMantenimiento
 
 	// VISTA
 	MantRutas mr;
@@ -31,7 +31,7 @@ public class CtrlRutas implements ICtrlMantenimiento {		// Implementa la interfa
 	int indexRuta = -1;
 
 	// CONSTRUCTOR
-	public CtrlRutas(MantRutas formulario_mr) {
+	public CtrlMantRutas(MantRutas formulario_mr) {
 		
 		listaClientes = clDao.listarTodos();
 		this.mr = formulario_mr;

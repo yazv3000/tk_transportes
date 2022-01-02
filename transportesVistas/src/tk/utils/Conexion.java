@@ -2,7 +2,6 @@ package tk.utils;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.SQLException;
 
 public class Conexion {
 	
@@ -17,7 +16,7 @@ public class Conexion {
 		try {
 			Class.forName(driver);
 			conn = DriverManager.getConnection(url, usuario, password);
-		} catch (ClassNotFoundException | SQLException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}

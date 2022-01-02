@@ -14,8 +14,11 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JSeparator;
 import javax.swing.JTextField;
+import javax.swing.ScrollPaneConstants;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
+import javax.swing.JScrollPane;
+
 
 
 public class BuscarRuta extends JFrame {
@@ -216,5 +219,14 @@ public class BuscarRuta extends JFrame {
 		botonBuscar.setFont(new Font("Georgia Ref", Font.PLAIN, 12));
 		botonBuscar.setBounds(260, 30, 90, 30);
 		panelFiltros.add(botonBuscar);
+		
+		JPanel panelAux = new JPanel();
+		panelAux.setBackground(new Color(65, 105, 225));
+		
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+		scrollPane.setBounds(0, 0, 765, 313);
+		scrollPane.setViewportView(panelAux);
+		
 	}
 }

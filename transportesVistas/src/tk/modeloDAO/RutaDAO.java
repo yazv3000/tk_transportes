@@ -53,7 +53,30 @@ public class RutaDAO implements CRUD<Ruta>, IBuscable<Ruta>{
 		
 		return lista;
 	}
-	
+	public List<Ruta> listarRutasDispo(){
+		List<Ruta> lista = new ArrayList<Ruta>();
+		
+		String sql = "SELECT * FROM RUTA WHERE ";		// Selecciona todos los campos de la tabla
+		
+		try {
+			con = Conexion.getConnection();
+			ps = con.prepareStatement(sql);
+			rs = ps.executeQuery();
+			generarRutas(rs, lista);					// Genera los clientes y los agrega a la list
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			
+		} finally {
+			try {
+				if(rs != null)	rs.close();
+				if(ps != null)	ps.close();
+				if(con != null) con.close();
+			} catch (Exception e2){}
+		}
+		
+		return lista;
+	}
 	private void generarRutas(ResultSet rs, List<Ruta> lista) {
 		
 		/*															TABLA CLIENTE 
@@ -315,7 +338,7 @@ public class RutaDAO implements CRUD<Ruta>, IBuscable<Ruta>{
 			} catch (Exception e2){}
 		}
 		
-		return lista;
-		
+		return lista;	
 	}
+	
 }
