@@ -53,7 +53,7 @@ public class RutaDAO implements CRUD<Ruta>, IBuscable<Ruta>{
 		
 		return lista;
 	}
-	public List<Ruta> listarRutasDispo(){
+	public List<Ruta> listarRutasDispo(String rutaO, String rutaD){
 		List<Ruta> lista = new ArrayList<Ruta>();
 		
 		String sql = "SELECT * FROM RUTA WHERE ";		// Selecciona todos los campos de la tabla
@@ -116,7 +116,7 @@ public class RutaDAO implements CRUD<Ruta>, IBuscable<Ruta>{
 		String sql = "SELECT MAX(codigoRu) FROM RUTA;";
 		
 		try {
-			con = conectar.getConnection();
+			con = Conexion.getConnection();
 			ps = con.prepareStatement(sql);
 			rs = ps.executeQuery();
 			
@@ -147,7 +147,7 @@ public class RutaDAO implements CRUD<Ruta>, IBuscable<Ruta>{
 		int valdrInsertar = -1;
 		
 		try {
-			con = conectar.getConnection();
+			con = Conexion.getConnection();
 			ps = con.prepareStatement(sql);
 			ps.setInt(1, r.getCodRuta());
 			ps.setString(2, r.getTipoServicio());
@@ -183,7 +183,7 @@ public class RutaDAO implements CRUD<Ruta>, IBuscable<Ruta>{
 				   + "WHERE codigoCl=?";
 		
 		try {
-			con = conectar.getConnection();
+			con = Conexion.getConnection();
 			ps = con.prepareStatement(sql);
 			ps.setString(1, r.getTipoServicio());
 			ps.setString(2, r.getHoraP());
@@ -225,7 +225,7 @@ public class RutaDAO implements CRUD<Ruta>, IBuscable<Ruta>{
 		int valdrEliminar = -1;
 		
 		try {
-			con = conectar.getConnection();
+			con = Conexion.getConnection();
 			ps = con.prepareStatement(sql);
 			ps.setInt(1, codigoRu);
 			
@@ -268,7 +268,7 @@ public class RutaDAO implements CRUD<Ruta>, IBuscable<Ruta>{
 		List<Ruta> lista = new ArrayList<Ruta>();
 		
 		try {
-			con = conectar.getConnection();
+			con = Conexion.getConnection();
 			ps = con.prepareStatement(sql);
 			ps.setInt(1, num);
 			rs = ps.executeQuery();
@@ -321,7 +321,7 @@ public class RutaDAO implements CRUD<Ruta>, IBuscable<Ruta>{
 		List<Ruta> lista = new ArrayList<Ruta>();
 
 		try {
-			con = conectar.getConnection();
+			con = Conexion.getConnection();
 			ps = con.prepareStatement(sql);
 			ps.setString(1, "%"+texto+"%");
 			rs = ps.executeQuery();

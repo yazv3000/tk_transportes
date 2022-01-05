@@ -8,6 +8,7 @@ import java.awt.event.MouseEvent;
 import javax.swing.border.BevelBorder;
 import javax.swing.event.MouseInputListener;
 
+import tk.principal.TookhaMain;
 import tk.vista.*;
 
 public class CtrlMenu implements ActionListener, MouseInputListener{
@@ -17,7 +18,6 @@ public class CtrlMenu implements ActionListener, MouseInputListener{
 	    
 	// CONSTRUCTOR
     public CtrlMenu(Menu formulario_fp) {
-    	
     	this.fp = formulario_fp;
     	this.fp.btnCerrarSesion.addActionListener(this);
     	this.fp.pnl_clientes.addMouseListener(this);
@@ -25,21 +25,20 @@ public class CtrlMenu implements ActionListener, MouseInputListener{
     	this.fp.pnl_rutas.addMouseListener(this);
         this.fp.pnl_reservas.addMouseListener(this);
     	this.fp.pnl_boletos.addMouseListener(this);
+    	//PERMITE LA VISIVILIDAD DE PANELES CON RESPECTO AL TIPO DE USUARUI [Cliente-Administrador]
+    	accesibilidadPaneles();
     }
-    
 	// EVENTOS
- 
  	@Override
  	public void actionPerformed(ActionEvent e) {
  		
 		 // VOLVER AL FORMULARIO PRINCIPAL
  		if(e.getSource() == fp.btnCerrarSesion) {
  			Autenticacion login = new Autenticacion();
-			//CtrlInicioSesion ctrl_login = new CtrlInicioSesion(login);
+			CtrlAutenticacion ctrl_login = new CtrlAutenticacion(login);
 			login.setVisible(true);
 			fp.dispose();
-			
-			// AppAutocine.tipoUsuario = 0;
+			TookhaMain.tipoUsuario = 0;
  		} 	
  	}
  	
@@ -153,6 +152,20 @@ public class CtrlMenu implements ActionListener, MouseInputListener{
     	}
     }
 	
+    //METODOS
+    public void accesibilidadPaneles() {
+    	if(TookhaMain.tipoUsuario == 2) {
+    		fp.pnl_clientes.setVisible(false);
+    		fp.pnl_vendedores.setVisible(false);
+    		fp.pnl_rutas.setVisible(false);
+    		//Hacer visible el panel con imagen 
+			fp.pnl_vndr.setVisible(true);
+    	}else {
+    		fp.pnl_clientes.setVisible(true);
+    		fp.pnl_vendedores.setVisible(true);
+    		fp.pnl_rutas.setVisible(true);
+    	}
+    }
 	// OTROS MÉTODOS DE LA INTERFAZ MOUSE_INPUT_LISTENER
     @Override
     public void mousePressed(MouseEvent e) { }

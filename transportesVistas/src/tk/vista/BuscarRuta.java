@@ -28,6 +28,7 @@ public class BuscarRuta extends JFrame {
 	private String origen;
 	private String destino;
 	private Date fecha;
+	public JPanel panelAux;
 	private int filtradorServicios=-1;
 	public static int controladorBack = 0;
 
@@ -220,7 +221,7 @@ public class BuscarRuta extends JFrame {
 		botonBuscar.setBounds(260, 30, 90, 30);
 		panelFiltros.add(botonBuscar);
 		
-		JPanel panelAux = new JPanel();
+		panelAux = new JPanel();
 		panelAux.setBackground(new Color(65, 105, 225));
 		
 		JScrollPane scrollPane = new JScrollPane();

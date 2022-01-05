@@ -15,19 +15,24 @@ import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
+import tk.controladores.CtrlMenu;
+import tk.principal.TookhaMain;
+
 
 public class Menu extends JFrame {
 	
 	private static final long serialVersionUID = 1L;
 	
 	public JButton btnCerrarSesion;
-	public JPanel pnl_rutas, pnl_clientes, pnl_vendedores, pnl_reservas, pnl_boletos;
+	public JPanel pnl_rutas, pnl_clientes, pnl_vendedores, pnl_reservas, pnl_boletos, pnl_vndr,contentPane;
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
+					TookhaMain.tipoUsuario = 2;
 					Menu frame = new Menu();
+					CtrlMenu ctrl_menu = new CtrlMenu(frame);
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -50,8 +55,8 @@ public class Menu extends JFrame {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setResizable(false);
 		this.setLocationRelativeTo(null);
-		
-		JPanel contentPane = new JPanel(null);
+	
+		contentPane = new JPanel(null);
 		contentPane.setBackground(Color.WHITE);
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -76,10 +81,14 @@ public class Menu extends JFrame {
 		
 		// PANEL CON IMÁGENES
 		JPanel panel_Img = new ImagenFondo();
-		panel_Img.setBackground(Color.GREEN);
 		panel_Img.setBounds(10, 70, 455, 410);
 		contentPane.add(panel_Img);
 		
+		pnl_vndr = new ImagenFondo2();
+		pnl_vndr.setBounds(526, 70, 350, 320);
+		pnl_vndr.setVisible(false);
+		contentPane.add(pnl_vndr);
+				
 		// BÚSQUEDA DE PASAJEROS
 		pnl_clientes = new JPanel(null);
 		pnl_clientes.setBackground(new Color(65, 105, 225));
@@ -145,6 +154,19 @@ public class Menu extends JFrame {
 	
 	// IMAGEN
 	class ImagenFondo extends JPanel{
+		private static final long serialVersionUID = 1L;
+		
+		private Image imagen;
+		//METODOS
+		public void paint (Graphics g)
+		{
+			imagen = new ImageIcon(getClass().getResource("/imagenes/BeFunky-collage (1).jpg")).getImage();
+			g.drawImage(imagen, 0, 0, getWidth(), getHeight(), this);
+			setOpaque(false);
+			super.paint(g);
+		}
+	}
+	class ImagenFondo2 extends JPanel{
 		private static final long serialVersionUID = 1L;
 		
 		private Image imagen;

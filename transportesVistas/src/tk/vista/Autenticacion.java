@@ -108,8 +108,9 @@ public class Autenticacion extends JFrame {
 		panelPrincipal.add(lblContra);
 		
 		cbxRol = new JComboBox();
-		cbxRol.setModel(new DefaultComboBoxModel(new String[] {"VENDEDOR", "ADMINISTRADOR"}));
+		cbxRol.setModel(new DefaultComboBoxModel(new String[] {"CLIENTE", "ADMINISTRADOR", "VENDEDOR"}));
 		cbxRol.setBounds(77, 250, 150, 22);
+		cbxRol.setSelectedItem(0);
 		panelPrincipal.add(cbxRol);
 		
 		JPanel encabezado = new JPanel((LayoutManager) null);

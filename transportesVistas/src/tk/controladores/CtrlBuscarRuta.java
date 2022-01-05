@@ -13,10 +13,6 @@ import javax.swing.GroupLayout.SequentialGroup;
 import tk.modelo.Ruta;
 import tk.modeloDAO.RutaDAO;
 import tk.vista.BuscarRuta;
-import utp.controlador.Color;
-import utp.controlador.Date;
-import utp.controlador.JPanel;
-import utp.controlador.JScrollPane;
 
 public class CtrlBuscarRuta implements ActionListener{
 	//VISTA
@@ -30,13 +26,19 @@ public class CtrlBuscarRuta implements ActionListener{
 	
 	//CONSTRUCTOR
 	public CtrlBuscarRuta(BuscarRuta formulario_buscRuta, String ciudadO, String ciudadD) {
+		listaRutas = ruDao.listar(ciudadO, ciudadD);
+		this.fbuscRuta = formulario_buscRuta;
+		this.fbuscRuta.botonBuscar.addActionListener(this);
+		this.fbuscRuta.btnSaltar.addActionListener(this);
+		this.fbuscRuta.btnVolver.addActionListener(this);
+	}
+	public CtrlBuscarRuta(BuscarRuta formulario_buscRuta) {
 		listaRutas = ruDao.listarTodos();
 		this.fbuscRuta = formulario_buscRuta;
 		this.fbuscRuta.botonBuscar.addActionListener(this);
 		this.fbuscRuta.btnSaltar.addActionListener(this);
 		this.fbuscRuta.btnVolver.addActionListener(this);
 	}
-	
 	//EVENTOS
 	@Override
 	public void actionPerformed(ActionEvent e) {
@@ -49,41 +51,35 @@ public class CtrlBuscarRuta implements ActionListener{
 		}
 	}
 	//METODOS
-	public void generarRutas()
-	{	// LAYOUT DEL PANEL AUXILIAR
+	
+	public void listar(){
+
+		GroupLayout gl = new GroupLayout(fbuscRuta.panelAux);
+		ParallelGroup pg = gl.createParallelGroup(Alignment.LEADING);
+		SequentialGroup sq = gl.createSequentialGroup();
+
+		for(int i=0; i<7; i++) {
+			listaRutas.get(i).generarPanelRuta();			// Instancia de la clase Ruta
+			pg.addComponent(listaRutas.get(i).getPanelRuta(), 710, 710, 710);
+			sq.addGap(15);
+			sq.addComponent(listaRutas.get(i).getPanelRuta(), 100, 100, 100);
+		}
+		sq.addGap(10);
 		
-		GroupLayout gl = new GroupLayout(panelAux);
-		SequentialGroup secuencial = gl.createSequentialGroup();
-		ParallelGroup paralelo =  gl.createParallelGroup(Alignment.LEADING);
-		
-			//--------- BUCLE PARA INCLUIR LAS RUTAS	 ---------- 						 // Usado en la versión 1.0
-			/*for (int i=1; i<=listaRutas.tamanoLista(); i++) {
-				Ruta objRuta	= (Ruta) listaRutas.getPosicion(i).getElemento();			// Instancia de la clase Ruta
-				JPanel pRuta = objRuta.getPanelRuta();											// panel con los datos de la ruta
-				
-				 paralelo.addComponent(pRuta, GroupLayout.DEFAULT_SIZE, 710,  GroupLayout.PREFERRED_SIZE);
-				 secuencial.addGap(15);
-				 secuencial.addComponent(pRuta, GroupLayout.PREFERRED_SIZE, 100, GroupLayout.PREFERRED_SIZE);
-			}---------------------------------------------------------------*/
-			
-			//----- ALGORITMO PARA INCLUIR LAS RUTAS	--------						// Desde versión 2.0
-			incluirRutasRecursivo(secuencial, paralelo, 1);
-			secuencial.addGap(15);
-			//----------------------------------------------------------------
-			
+		//  Horizontal
 		gl.setHorizontalGroup(
 				gl.createParallelGroup(Alignment.LEADING)
 					.addGroup(gl.createSequentialGroup()
-						.addContainerGap()
-						.addGroup(paralelo)
-						.addContainerGap())
-		);
+						.addGap(10)
+						.addGroup(pg)));
+		
+		// Vertical
 		gl.setVerticalGroup(
 				gl.createParallelGroup(Alignment.LEADING)
-					.addGroup(secuencial)
-		);
+					.addGroup(sq));
 		
-		panelAux.setLayout(gl);
-		contentPane2.add(scrollPane);
+		fbuscRuta.panelAux.setLayout(gl);
 	}
+	
+	public 
 }
